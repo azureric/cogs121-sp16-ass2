@@ -15,15 +15,6 @@ dotenv.load();
 //connect to database
 var conString = process.env.DATABASE_CONNECTION_URL;
 
-var client = new pg.Client(conString);
-
-client.connect(function(err){
-    if(err)
-    {
-        console.log("Could not connect to database");
-    }
-});
-
 //Configures the Template engine
 app.engine('html', handlebars({ defaultLayout: 'layout', extname: '.html' }));
 app.set("view engine", "html");
@@ -53,19 +44,39 @@ app.get('/delphidata', function (req, res) {
   // Display that data using D3 with gender on the x-axis and 
   // total respondents on the y-axis.
 
-    var query = ["SELECT gender, number_of_respondents",
-        "FROM cogs121_16_raw.cdph_smoking_prevalence_in_adults_1984_2013 AS value",
-        "WHERE value.year = 2003"];
 
-    client.query(query, function(err, result){
-        if(err){
-            res.send("No data found");
-        }
-        console.log(result);
-        res.json(result.rows);
-    });
+  //connect to DELPHI Database
+  var pg = require('pg');
 
-  //return { delphidata: "No data present." }
+  var conString = process.env.DATABASE_CONNECTION_URL;
+
+  var client = new pg.Client(conString);
+  client.connect(function(err) {
+    if(err) {
+      return console.error('could not connect to postgres', err);
+    }
+    /* has to change th query: Query: In the year 2003, retrieve the 
+    total number of respondents for each gender from the Smoking 
+    Prevalence in Adults table from 1984-2013. */
+    /*cdph_smoking_prevalence_in_adults_1984_2013*/
+    client.query('SELECT gender, number_of_respondents FROM cogs121_16_raw.cdph_smoking_prevalence_in_adults_1984_2013 AS value WHERE value.year = 2003 ORDER BY number_of_respondents',
+        function(err, result) {
+            if(err) {
+            return console.error('error running query', err);
+            }
+            //console.log(result.rows);
+            /* change this */
+            // console.log(result.rows[0].value);
+            //output: Tue Jan 15 2013 19:12:47 GMT-600 (CST)
+
+            res.json(result.rows);
+            client.end();
+
+            return { delphidata: result };
+        });
+  });
+
+  return { delphidata: "No data present." }
 });
 
 
