@@ -64,9 +64,9 @@ app.get('/delphidata', function (req, res) {
             if(err) {
             return console.error('error running query', err);
             }
-            console.log(result.rows);
+            console.log(result);
             /* change this */
-            // console.log(result.rows[0].value);
+             console.log(result.rows[0].value);
             //output: Tue Jan 15 2013 19:12:47 GMT-600 (CST)
 
             res.json(result.rows);
