@@ -56,7 +56,9 @@ var svg = d3.select("body").append("svg")
   .append("g")
     .attr("transform", "translate(" + diameter / 2 + "," + diameter / 2 + ")");
 
-d3.json("flare.json", function(error, root) {
+//./js/reference.json
+//res.json
+d3.json("./js/reference.json", function(error, root) {
   if (error) throw error;
 
   var focus = root,
