@@ -59,7 +59,7 @@ app.get('/delphidata', function (req, res) {
     total number of respondents for each gender from the Smoking 
     Prevalence in Adults table from 1984-2013. */
     /*cdph_smoking_prevalence_in_adults_1984_2013*/
-    client.query('SELECT * FROM cogs121_16_raw.hhsa_tot_injuries_due_to_mot_veh_crashes_total_2010_2011 AS tableData',
+    client.query('SELECT "Geography", "2010 Total MVC Injury No.", "2010 Total MVC Injury Rate" FROM cogs121_16_raw.hhsa_total_injuries_due_to_motor_vehicle_crashes_2010_2011 AS tableData',
         function(err, result) {
             if(err) {
             return console.error('error running query', err);
