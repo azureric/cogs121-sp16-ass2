@@ -108,7 +108,7 @@
         <div class="sidebar-toggle-box">
         </div>
         <!--logo start-->
-        <a href="index.html" class="logo"><b>Crash Vis</b></a>
+        <a class="logo"><b>Crash Vis&mdash;San Diego</b></a>
         <!--logo end-->
         <div class="nav notify-row" id="top_menu">
             <!--  notification start -->
@@ -172,43 +172,15 @@
                     <!--COMPLETED ACTIONS DONUTS CHART-->
                     <h3>MOTOR VEHICLE INJURIES</h3>
 
-                    <!-- First Action -->
-                    <div id="userdata">
-                        
+                    <div id="userdata"> 
                     </div>
-                    <!-- Second Action -->
+                    
                     <div class="desc">
-                        <div class="details" id="welcome" style="width: 100%;">
+                        <div class="details" id="welcome" style="width: 100%; text-align: center; margin-left: 0px">
                             <h2>Welcome to Crash Vis!</h2>
                             <p>Click on any region within the circle to view motor vehicle crash injuries.</p>
                         </div>
                     </div>
-
-                    <!-- USERS ONLINE SECTION -->
-                    <!-- <h3>TEAM MEMBERS</h3> -->
-                    <!-- First Member -->
-             <!--        <div class="desc">
-                        <div class="thumb">
-                            <img class="img-circle" src="assets/img/ui-divya.jpg" width="35px" height="35px" align="">
-                        </div>
-                        <div class="details">
-                            <p><a href="#">DIVYA MANIAN</a><br/>
-                                <muted>Available</muted>
-                            </p>
-                        </div>
-                    </div>
-                    Second Member
-                    <div class="desc">
-                        <div class="thumb">
-                            <img class="img-circle" src="assets/img/ui-sherman.jpg" width="35px" height="35px" align="">
-                        </div>
-                        <div class="details">
-                            <p><a href="#">DJ SHERMAN</a><br/>
-                                <muted>I am Busy</muted>
-                            </p>
-                        </div>
-                    </div>
- -->
                 </div><!-- /col-lg-3 -->
             </div><!--/row -->
         </section>
@@ -303,9 +275,14 @@
     function renderSideBar(d){
         $("#userdata").empty();
         $("#welcome").empty();
+        var regionName = d.name;
+        var renderRegion = "<h2 style='text-align: center;'>Region: " + d["name"] + "</h2>";
+        $(renderRegion).appendTo("#userdata");
+
         for (i = 0; i < d["children"].length; i++){
             var data = d["children"][i];
-            var renderinfo = "<div class='desc'>" + "<div class='details'>" + "<h4><b>" + "Region: " + data["name"] + "</b></h4>" +
+            var renderinfo ="<div class='desc'>" + "<div class='details'>" + 
+                            "<h4><b>" + "Region: " + data["name"] + "</b></h4>" +
                             "<p>" + "Total Injuries in 2011: <b>" + data["2011InjuryNum"] + "</b></p>" +
                             "<p>" + "Total Injuries in 2010: <b>" + data["2010InjuryNum"] + "</b></p>" + "</div> </div>";
             $(renderinfo).appendTo("#userdata");
