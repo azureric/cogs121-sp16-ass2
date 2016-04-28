@@ -179,7 +179,7 @@
                     <div class="desc">
                         <div class="details" id="welcome" style="width: 100%; text-align: center; margin-left: 0px">
                             <h2>Welcome to Crash Vis!</h2>
-                            <p>Click on any region within the circle to view motor vehicle crash injuries.</p>
+                            <h4>Click on any region within the circle to view motor vehicle crash injuries.</h4>
                         </div>
                     </div>
                 </div><!-- /col-lg-3 -->
@@ -219,8 +219,13 @@
 <script src="assets/js/zabuto_calendar.js"></script>
 
 <script src="assets/sweetalert/dist/sweetalert.min.js"></script> <link rel="stylesheet" type="text/css" href="assets/sweetalert/dist/sweetalert.css">
+<script async defer
+  src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDXW7lc4EsckmB2NLXAWhYqrY5cLxz-jDM&callback=initMap">
+</script>
+<!-- <script src="/assets/js/googleMaps.js"></script> -->
 
 <script type="text/javascript">
+
     $(document).ready(function () {
         var unique_id = $.gritter.add({
             // (string | mandatory) the heading of the notification
@@ -283,7 +288,7 @@
         for (i = 0; i < d["children"].length; i++){
             var data = d["children"][i];
             var renderinfo ="<div class='desc'>" + "<div class='details'>" + 
-                            "<h4><b>" + "Region: " + data["name"] + "</b></h4>" +
+                            "<h4>" + "City: <b>" + data["name"] + "</b></h4>" +
                             "<p>" + "Total Injuries in 2011: <b>" + data["2011InjuryNum"] + "</b></p>" +
                             "<p>" + "Total Injuries in 2010: <b>" + data["2010InjuryNum"] + "</b></p>" + "</div> </div>";
             $(renderinfo).appendTo("#userdata");
@@ -291,16 +296,6 @@
 
 
     }
-    $(function() {
-        $.getJSON("/delphidata", function(data) {
-            $.each(data.children, function(i, data) {
-                // console.log(f["children"]);
-                console.log(data.children);
-                var info = "<p>" + data["name"] + "</p>" + "<p>" + data["children"][0]["2010InjuryNum"] + "</p>";
-                //$(info).appendTo("#userdata");
-            });
-        });
-    });
 
 </script>
 <script src="//d3js.org/d3.v3.min.js"></script>
@@ -436,7 +431,6 @@ svg.call(tip);
     });
 
     d3.select(self.frameElement).style("height", diameter + "px");
-
 </script>
 
 </body>
