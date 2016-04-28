@@ -74,7 +74,9 @@ app.get('/delphidata', function (req, res) {
             var rawData = result.rows;
             var renderData = {"name": "flare", "children" : []};
 
-            var renderRootItem  = {"name": "flare", "children" : []};
+
+
+            var unListedItem = [];
 
             for(i = 0; i < rawData.length; i++){
                 // var renderDataItem = {};
@@ -94,42 +96,78 @@ app.get('/delphidata', function (req, res) {
                 var injuryRate2011 = parseInt(rawData[i]["2011 Total MVC Injury Rate"]);
 
                 renderDataInjuryRate["size"] = (injuryRate2010 + injuryRate2011)/2.0;
+                renderDataInjuryRate["regionID"] = 0;
                 //console.log( rawData[i].Geography + " renderDataInjuryRate['size'] =" + (injuryRate2010 + injuryRate2011)/2.0);
 
                 if(!isNaN(renderDataInjuryRate["size"])){
                     //console.log(rawData[i].Geography + " " +  renderDataInjuryRate["size"]);
-                    renderRootItem["children"].push(renderDataInjuryRate);
+                    unListedItem.push(renderDataInjuryRate);
                 }
             }
 
-            renderData["children"].push(renderRootItem);
-
             //console.log(renderData);
 
-            res.json(renderData);
 
-            // client.query('SELECT "Region Number", "Area" FROM cogs121_16_raw.hhsa_san_diego_demographics_county_population_2012 AS regionArea',
-            //     function(err, resultArea) {
-            //         if(err) {
-            //             return console.error('error running query', err);
-            //         }
-            //         console.log(resultArea);
-            //
-            //         var areaNames = {};
-            //         var rawData_areas = resultArea.rows;
-            //
-            //         for(i = 0; i < rawData_areas.length; i++){
-            //
-            //             areaNames["area"] = rawData_areas[i].Area;
-            //         }
-            //
-            //         for(i = 0; i < rawData_areas.length; i++){
-            //             for(j = 0; j < rawData_areas.length; j++){
-            //                 if(areaNames[i])
-            //             }
-            //         }
-            //     }
-            // );
+
+            client.query('SELECT "Region Number", "Area" FROM cogs121_16_raw.hhsa_san_diego_demographics_county_population_2012 AS regionArea',
+                function(err, resultArea) {
+                    if(err) {
+                        return console.error('error running query', err);
+                    }
+                    console.log(resultArea);
+
+                    var resultAreaRaw = resultArea.rows
+
+                    for(k = 0; k < unListedItem.length; k++){
+                        var targetGeoName = unListedItem[k]["name"];
+                        for(j = 0; j < resultAreaRaw.length; j++){
+
+                            targetGeoName = targetGeoName.replace("San Diego", "SD");
+
+                            if(resultAreaRaw[j]["Area"] == targetGeoName) {
+                                unListedItem[k]["regionID"] = resultAreaRaw[j]["Region Number"];
+                                break;
+                            }
+                        }
+                        if(unListedItem[k]["regionID"] == 0){
+                            console.log("too sad");
+                        }
+                    }
+
+                    var regionDict = [];
+                    for(k = 0; k < resultAreaRaw.length; k++){
+                        if(resultAreaRaw[k]["Region Number"].length != 1
+                            && (resultAreaRaw[k]["Region Number"] != "County Total")){
+                            console.log("Found a region!");
+                            regionDict[resultAreaRaw[k]["Region Number"].charAt(0)] = resultAreaRaw[k]["Area"];
+                            var regionDictData = {"name": resultAreaRaw[k]["Area"], "children": []};
+
+                            console.log(resultAreaRaw[k]["Region Number"].charAt(0));
+
+                            for(j = 0; j < unListedItem.length; j++){
+                                if (unListedItem[j]["regionID"] == resultAreaRaw[k]["Region Number"].charAt(0)){
+
+                                    regionDictData["children"].push(unListedItem[j]);
+                                }
+                            }
+                            renderData["children"].push(regionDictData);
+                        }
+                    }
+
+                    console.log(renderData);
+                    res.json(renderData);
+                    //
+                    // for(i = 0; i < rawData_areas.length; i++){
+                    //     areaNames["area"] = rawData_areas[i].Area;
+                    // }
+
+                    // for(i = 0; i < rawData_areas.length; i++){
+                    //     for(j = 0; j < rawData_areas.length; j++){
+                    //         if(areaNames[i])
+                    //     }
+                    // }
+                }
+            );
 
             client.end();
             //return { delphidata: result };
