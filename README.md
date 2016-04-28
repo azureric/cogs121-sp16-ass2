@@ -13,6 +13,11 @@ Our California Highway Patrol officers work hard to assure the safe, convenient 
 * Chen Yang: 
 
 -------------------------------------------------------------------
+#instructions:
+1. 
+2. 
+3. 
+-------------------------------------------------------------------
 #Design Principles/Decisions:
 
 **Discoverability/Signifiers**
