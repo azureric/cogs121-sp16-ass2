@@ -47,7 +47,7 @@ app.get('/dashboard', function(req, res){
 
 
 app.get('/delphidata', function (req, res) {
-  // TODO
+  //
   // Connect to the DELPHI Database and return the proper information
   // that will be displayed on the D3 visualization
   // Table: Smoking Prevalance in Adults
@@ -118,8 +118,6 @@ app.get('/delphidata', function (req, res) {
             }
 
             //console.log(renderData);
-
-
 
             client.query('SELECT "Region Number", "Area" FROM cogs121_16_raw.hhsa_san_diego_demographics_county_population_2012 AS regionArea',
                 function(err, resultArea) {
