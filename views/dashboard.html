@@ -68,6 +68,7 @@
   background: rgba(0, 0, 0, 0.8);
   color: #fff;
   border-radius: 2px;
+  z-index: 1005;
 }
 
 /* Creates a small triangle extender for the tooltip */
@@ -147,68 +148,24 @@
 
                 <div class="col-lg-5 ds">
                     <!--COMPLETED ACTIONS DONUTS CHART-->
-                    <h3>NOTIFICATIONS</h3>
+                    <h3>MOTOR VEHICLE INJURIES</h3>
 
                     <!-- First Action -->
-                    <div class="desc">
-                        <div class="thumb">
-                            <span class="badge bg-theme"><i class="fa fa-clock-o"></i></span>
-                        </div>
-                        <div class="details">
-                            <p><muted>2 Minutes Ago</muted><br/>
-                                <a href="#">James Brown</a> subscribed to your newsletter.<br/>
-                            </p>
-                        </div>
+                    <div id="userdata">
+                        
                     </div>
                     <!-- Second Action -->
                     <div class="desc">
-                        <div class="thumb">
-                            <span class="badge bg-theme"><i class="fa fa-clock-o"></i></span>
-                        </div>
-                        <div class="details">
-                            <p><muted>3 Hours Ago</muted><br/>
-                                <a href="#">Diana Kennedy</a> purchased a year subscription.<br/>
-                            </p>
-                        </div>
-                    </div>
-                    <!-- Third Action -->
-                    <div class="desc">
-                        <div class="thumb">
-                            <span class="badge bg-theme"><i class="fa fa-clock-o"></i></span>
-                        </div>
-                        <div class="details">
-                            <p><muted>7 Hours Ago</muted><br/>
-                                <a href="#">Brandon Page</a> purchased a year subscription.<br/>
-                            </p>
-                        </div>
-                    </div>
-                    <!-- Fourth Action -->
-                    <div class="desc">
-                        <div class="thumb">
-                            <span class="badge bg-theme"><i class="fa fa-clock-o"></i></span>
-                        </div>
-                        <div class="details">
-                            <p><muted>11 Hours Ago</muted><br/>
-                                <a href="#">Mark Twain</a> commented your post.<br/>
-                            </p>
-                        </div>
-                    </div>
-                    <!-- Fifth Action -->
-                    <div class="desc">
-                        <div class="thumb">
-                            <span class="badge bg-theme"><i class="fa fa-clock-o"></i></span>
-                        </div>
-                        <div class="details">
-                            <p><muted>18 Hours Ago</muted><br/>
-                                <a href="#">Daniel Pratt</a> purchased a wallet in your store.<br/>
-                            </p>
+                        <div class="details" id="welcome" style="width: 100%;">
+                            <h2>Welcome to Crash Vis!</h2>
+                            <p>Click on any region within the circle to view motor vehicle crash injuries.</p>
                         </div>
                     </div>
 
                     <!-- USERS ONLINE SECTION -->
-                    <h3>TEAM MEMBERS</h3>
+                    <!-- <h3>TEAM MEMBERS</h3> -->
                     <!-- First Member -->
-                    <div class="desc">
+             <!--        <div class="desc">
                         <div class="thumb">
                             <img class="img-circle" src="assets/img/ui-divya.jpg" width="35px" height="35px" align="">
                         </div>
@@ -218,7 +175,7 @@
                             </p>
                         </div>
                     </div>
-                    <!-- Second Member -->
+                    Second Member
                     <div class="desc">
                         <div class="thumb">
                             <img class="img-circle" src="assets/img/ui-sherman.jpg" width="35px" height="35px" align="">
@@ -229,9 +186,9 @@
                             </p>
                         </div>
                     </div>
-
+ -->
                 </div><!-- /col-lg-3 -->
-            </div><! --/row -->
+            </div><!--/row -->
         </section>
     </section>
 
@@ -239,7 +196,7 @@
     <!--footer start-->
     <footer class="site-footer">
         <div class="text-center">
-            2016 - COGS160 - Assignment 2 - Chen Yang, Nicole Wong, Bonnie Chinh , Anjelica Thang, Joseph Martin
+            2016 - COGS121 - Assignment 2 - Chen Yang, Nicole Wong, Bonnie Chinh , Anjelica Thang, Joseph Martin
     
         </div>
     </footer>
@@ -320,6 +277,30 @@
         var to = $("#" + id).data("to");
         console.log('nav ' + nav + ' to: ' + to.month + '/' + to.year);
     }
+    function renderSideBar(d){
+        $("#userdata").empty();
+        $("#welcome").empty();
+        for (i = 0; i < d["children"].length; i++){
+            var data = d["children"][i];
+            var renderinfo = "<div class='desc'>" + "<div class='details'>" + "<h4><b>" + "Region: " + data["name"] + "</b></h4>" +
+                            "<p>" + "Total Injuries in 2011: <b>" + data["2011InjuryNum"] + "</b></p>" +
+                            "<p>" + "Total Injuries in 2010: <b>" + data["2010InjuryNum"] + "</b></p>" + "</div> </div>";
+            $(renderinfo).appendTo("#userdata");
+        }
+
+
+    }
+    $(function() {
+        $.getJSON("/delphidata", function(data) {
+            $.each(data.children, function(i, data) {
+                // console.log(f["children"]);
+                console.log(data.children);
+                var info = "<p>" + data["name"] + "</p>" + "<p>" + data["children"][0]["2010InjuryNum"] + "</p>";
+                //$(info).appendTo("#userdata");
+            });
+        });
+    });
+
 </script>
 <script src="//d3js.org/d3.v3.min.js"></script>
 <script src="http://labratrevenge.com/d3-tip/javascripts/d3.tip.v0.6.3.js"></script>
@@ -375,13 +356,29 @@ svg.call(tip);
                 view;
 
         var circle = svg.selectAll("circle")
-                .data(nodes)
-                .enter().append("circle")
-                .attr("class", function(d) { return d.parent ? d.children ? "node" : "node node--leaf" : "node node--root"; })
-                .style("fill", function(d) { return d.children ? color(d.depth) : null; })
-                .on("click", function(d) { if (focus !== d) zoom(d), d3.event.stopPropagation(); })
-                .on("mouseover", tip.show)
-                .on("mouseout", tip.hide);
+            .data(nodes)
+            .enter().append("circle")
+            .attr("class", function(d) { return d.parent ? d.children ? "node" : "node node--leaf" : "node node--root"; })
+            .style("fill", function(d) { return d.children ? color(d.depth) : null; })
+            .on("click", function(d) {
+                if (focus !== d) {
+                    console.log(d);
+                    if(d.hasOwnProperty("regionID")){
+                        console.log("ON REGION ID!");
+                        console.log(d.parent);
+                        renderSideBar(d.parent);
+                        zoom(d.parent), d3.event.stopPropagation();
+                    }
+                    else{
+                        console.log("OFF REGION ID!");
+                        renderSideBar(d);
+                        zoom(d), d3.event.stopPropagation();
+                    }
+
+                }
+            })
+            .on("mouseover", tip.show)
+            .on("mouseout", tip.hide);
 
 
         var text = svg.selectAll("text")
