@@ -70,9 +70,10 @@ body{
 
 /* Style northward tooltips differently */
 .d3-tip.n:after {
-  margin: -1px 0 0 0;
+  margin: -100px 0 0 0;
   top: 100%;
   left: 0;
+  visibility: hidden;
 }
 
 </style>
@@ -109,10 +110,14 @@ var tip = d3.tip()
   .offset([-10, 0])
   .html(function(d) {
     var totalInjuries = (d["2010InjuryNum"] + d["2011InjuryNum"])/2.0;
-    console.log("entered function in tip");
-    if(isNaN(totalInjuries))
-      return console.log(totalInjuries);
-    return "<strong>Total Injuries</strong>: " + totalInjuries;
+    if(isNaN(totalInjuries)) {
+      var regionTotal = 0;
+      for(var i = 0; i < d.children.length; i++) {
+        regionTotal += (d["children"][i]["2010InjuryNum"] + d["children"][i]["2011InjuryNum"])/2.0;
+      }
+      return "<strong>Total Region Motor Injury: </strong>" + regionTotal;
+    }
+    return "<strong>Total Motor Injuries: </strong>" + totalInjuries;
   });
 
 svg.call(tip);
@@ -132,13 +137,7 @@ d3.json("/delphidata", function(error, root) {
       .attr("class", function(d) { return d.parent ? d.children ? "node" : "node node--leaf" : "node node--root"; })
       .style("fill", function(d) { return d.children ? color(d.depth) : null; })
       .on("click", function(d) { if (focus !== d) zoom(d), d3.event.stopPropagation(); })
-      // .on("mouseover", function(d) { showData(d); })
-      .on("mouseover", function(d) { 
-        if (!$(this).attr("class") == "node node--leaf") {
-          return console.log(($(this).attr("class") == "node node--leaf"));
-        }
-        showData(d); })
-        // } return console.log(($(this).attr("class") == "node node--leaf")); })
+      .on("mouseover", tip.show)
       .on("mouseout", tip.hide);
 
 
@@ -181,11 +180,6 @@ d3.json("/delphidata", function(error, root) {
     node.attr("transform", function(d) { return "translate(" + (d.x - v[0]) * k + "," + (d.y - v[1]) * k + ")"; });
 
     circle.attr("r", function(d) { return d.r * k; });
-  }
-
-  function showData(d) {
-     tip.show;
-     console.log("entered showData");
   }
 });
 
