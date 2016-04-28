@@ -137,7 +137,7 @@ app.get('/delphidata', function (req, res) {
                     var regionDict = [];
                     for(k = 0; k < resultAreaRaw.length; k++){
                         if(resultAreaRaw[k]["Region Number"].length != 1
-                            && (resultAreaRaw[k]["Region Number"] != "Country Total")){
+                            && (resultAreaRaw[k]["Region Number"] != "County Total")){
                             console.log("Found a region!");
                             regionDict[resultAreaRaw[k]["Region Number"].charAt(0)] = resultAreaRaw[k]["Area"];
                             var regionDictData = {"name": resultAreaRaw[k]["Area"], "children": []};
