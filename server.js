@@ -64,12 +64,12 @@ app.get('/delphidata', function (req, res) {
     total number of respondents for each gender from the Smoking 
     Prevalence in Adults table from 1984-2013. */
     /*cdph_smoking_prevalence_in_adults_1984_2013*/
-    client.query('SELECT "Geography", "2010 Total MVC Injury No.", "2011 Total MVC Injury No." FROM cogs121_16_raw.hhsa_total_injuries_due_to_motor_vehicle_crashes_2010_2011 AS tableData',
+    client.query('SELECT "Geography", "2010 Total MVC Injury No.", "2011 Total MVC Injury No.", "2010 Total MVC Injury Rate", "2011 Total MVC Injury Rate" FROM cogs121_16_raw.hhsa_total_injuries_due_to_motor_vehicle_crashes_2010_2011 AS tableData',
         function(err, result) {
             if(err) {
             return console.error('error running query', err);
             }
-            console.log(result);
+            //console.log(result);
 
             var rawData = result.rows;
             var renderData = {"name": "flare", "children" : []};
@@ -77,21 +77,60 @@ app.get('/delphidata', function (req, res) {
             var renderRootItem  = {"name": "flare", "children" : []};
 
             for(i = 0; i < rawData.length; i++){
-                var renderDataItem = {};
-                renderDataItem["name"] = rawData[i].Geography;
+                // var renderDataItem = {};
+                // renderDataItem["name"] = rawData[i].Geography;
 
-                var data2010 = rawData[i]["2010 Total MVC Injury No."];
-                var data2011 = rawData[i]["2011 Total MVC Injury No."];
+                //var data2010 = rawData[i]["2010 Total MVC Injury No."];
+                //var data2011 = rawData[i]["2011 Total MVC Injury No."];
 
-                renderDataItem["size"] = (data2010 + data2011)/2.0;
-                renderRootItem["children"].push(renderDataItem);
+                //renderDataItem["size"] = (data2010 + data2011)/2.0;
+                //renderRootItem["children"].push(renderDataItem);
+
+
+                var renderDataInjuryRate = {};
+                renderDataInjuryRate["name"] = rawData[i].Geography;
+
+                var injuryRate2010 = parseInt(rawData[i]["2010 Total MVC Injury Rate"]);
+                var injuryRate2011 = parseInt(rawData[i]["2011 Total MVC Injury Rate"]);
+
+                renderDataInjuryRate["size"] = (injuryRate2010 + injuryRate2011)/2.0;
+                //console.log( rawData[i].Geography + " renderDataInjuryRate['size'] =" + (injuryRate2010 + injuryRate2011)/2.0);
+
+                if(!isNaN(renderDataInjuryRate["size"])){
+                    //console.log(rawData[i].Geography + " " +  renderDataInjuryRate["size"]);
+                    renderRootItem["children"].push(renderDataInjuryRate);
+                }
             }
 
             renderData["children"].push(renderRootItem);
 
-            console.log(renderData);
+            //console.log(renderData);
 
             res.json(renderData);
+
+            // client.query('SELECT "Region Number", "Area" FROM cogs121_16_raw.hhsa_san_diego_demographics_county_population_2012 AS regionArea',
+            //     function(err, resultArea) {
+            //         if(err) {
+            //             return console.error('error running query', err);
+            //         }
+            //         console.log(resultArea);
+            //
+            //         var areaNames = {};
+            //         var rawData_areas = resultArea.rows;
+            //
+            //         for(i = 0; i < rawData_areas.length; i++){
+            //
+            //             areaNames["area"] = rawData_areas[i].Area;
+            //         }
+            //
+            //         for(i = 0; i < rawData_areas.length; i++){
+            //             for(j = 0; j < rawData_areas.length; j++){
+            //                 if(areaNames[i])
+            //             }
+            //         }
+            //     }
+            // );
+
             client.end();
             //return { delphidata: result };
         });
