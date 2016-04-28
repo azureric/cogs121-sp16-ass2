@@ -19,7 +19,7 @@ body{
     margin: auto;
     position: relative;
     /*width: 1000px;*/
-    width: 80%;
+    width: 90%;
     /*height: 500px;*/
 }
 
@@ -53,8 +53,11 @@ body{
 <script src="//d3js.org/d3.v3.min.js"></script>
 <script>
 
+// var margin = 10,
+//     diameter = 800;
+
 var margin = 10,
-    diameter = 800;
+	diameter =1.0 * window.innerHeight;
 
 var color = d3.scale.linear()
     .domain([-1, 5])
