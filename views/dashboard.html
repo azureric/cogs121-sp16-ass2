@@ -287,10 +287,11 @@
 
         for (i = 0; i < d["children"].length; i++){
             var data = d["children"][i];
-            var renderinfo ="<div class='desc'>" + "<div class='details'>" + 
+            var renderinfo ="<div class='desc'>" + "<div class='details' style='width:100%;'>" + 
                             "<h4>" + "City: <b>" + data["name"] + "</b></h4>" +
                             "<p>" + "Total Injuries in 2011: <b>" + data["2011InjuryNum"] + "</b></p>" +
-                            "<p>" + "Total Injuries in 2010: <b>" + data["2010InjuryNum"] + "</b></p>" + "</div> </div>";
+                            "<p>" + "Total Injuries in 2010: <b>" + data["2010InjuryNum"] + "</b></p>" + 
+                            "<p>" + "Average Injuries 2010-2011: <b>" + (data["2011InjuryNum"]+data["2010InjuryNum"])/2.0 + "</b></p>" + "</div> </div>";
             $(renderinfo).appendTo("#userdata");
         }
 
