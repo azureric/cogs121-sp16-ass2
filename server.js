@@ -41,6 +41,11 @@ app.get('/title', function(req, res){
   res.render('title');
 });
 
+app.get('/dashboard', function(req, res){
+    res.render('dashboard');
+});
+
+
 app.get('/delphidata', function (req, res) {
   // TODO
   // Connect to the DELPHI Database and return the proper information
@@ -90,7 +95,6 @@ app.get('/delphidata', function (req, res) {
 
                 //renderDataItem["size"] = (data2010 + data2011)/2.0;
                 //renderRootItem["children"].push(renderDataItem);
-
 
                 var renderDataInjuryRate = {};
                 renderDataInjuryRate["name"] = rawData[i].Geography;
