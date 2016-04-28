@@ -73,14 +73,13 @@ app.get('/delphidata', function (req, res) {
             if(err) {
             return console.error('error running query', err);
             }
-            //console.log(result);
 
             var rawData = result.rows;
             var renderData = {"name": "flare", "children" : []};
 
-
-
             var unListedItem = [];
+
+
 
             for(i = 0; i < rawData.length; i++){
                 // var renderDataItem = {};
@@ -97,10 +96,15 @@ app.get('/delphidata', function (req, res) {
                 renderDataInjuryRate["name"] = rawData[i].Geography;
 
                 var injuryRate2010 = parseInt(rawData[i]["2010 Total MVC Injury Rate"]);
+                var injuryNum2010 = parseInt(rawData[i]["2010 Total MVC Injury No."]);
                 var injuryRate2011 = parseInt(rawData[i]["2011 Total MVC Injury Rate"]);
+                var injuryNum2011 = parseInt(rawData[i]["2011 Total MVC Injury No."]);
 
                 renderDataInjuryRate["size"] = (injuryRate2010 + injuryRate2011)/2.0;
                 renderDataInjuryRate["regionID"] = 0;
+                renderDataInjuryRate["2010InjuryNum"] = injuryNum2010;
+                renderDataInjuryRate["2011InjuryNum"] = injuryNum2011;
+
                 //console.log( rawData[i].Geography + " renderDataInjuryRate['size'] =" + (injuryRate2010 + injuryRate2011)/2.0);
 
                 if(!isNaN(renderDataInjuryRate["size"])){
