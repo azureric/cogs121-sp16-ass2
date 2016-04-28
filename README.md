@@ -21,9 +21,9 @@ for them to control traffic and prevent collisions.
 
 -------------------------------------------------------------------
 #instructions:
-1. 
-2. 
-3. 
+1. Click on a region to view the cities in that region.
+2. Position your mouse over the city you want to know more about.
+3. Click anywhere to zoom out and explore another region.
 -------------------------------------------------------------------
 #Design Principles/Decisions:
 
