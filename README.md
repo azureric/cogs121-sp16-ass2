@@ -36,7 +36,7 @@ for them to control traffic and prevent collisions.
 
 **Natural Mapping/Mental Metaphors**
 - Is there strong evidence of providing natural mappings or relatable metaphors that help the user navigate the application?
-- Our development team utilized research in cognitive science to develop a visualization that works with the natural human perceptive system to help convey intuitive understanding.  Contrast in proximity and color are used to differentiate different regions and cities, while the size of the circles is representative of the relative numerosity of collisions in that area. 
+- Our development team utilized research in cognitive science to develop a visualization that works with the natural human perceptive system to help convey intuitive understanding.  Contrast in proximity and color are used to differentiate different regions and cities, while the size of the circles is representative of the relative numerosity of collisions in that area.
 
 **Constraints**
 - Does the application have deliberate constraints to guide the flow of user interaction?
