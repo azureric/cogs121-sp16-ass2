@@ -20,6 +20,11 @@ for them to control traffic and prevent collisions.
 * Chen Yang: 
 
 -------------------------------------------------------------------
+#instructions:
+1. 
+2. 
+3. 
+-------------------------------------------------------------------
 #Design Principles/Decisions:
 
 **Discoverability/Signifiers**

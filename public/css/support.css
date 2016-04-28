@@ -1,0 +1,9 @@
+body {
+    background-image:
+            linear-gradient(rgba(231, 111,183, 0.5), rgba(231, 111,183, 0.5)),
+            url("../img/support.jpg");
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: 100%;
+    background-position: bottom;
+}
