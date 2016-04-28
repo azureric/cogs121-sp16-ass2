@@ -13,7 +13,7 @@ for them to control traffic and prevent collisions.
 
 -------------------------------------------------------------------
 #Authors/Contributions:
-* Bonnie Chinh:     Brainstorm ideas for assignment. Implemented the information bar. Hover functionality. Dashboard & Sidebar implementation.
+* Bonnie Chinh:     Brainstorm ideas for assignment. Implemented the information bar. Hover functionality of statistics. Dashboard & Sidebar implementation.
 * Joseph Martin:    Brainstorm ideas for assignment. Help with designing landing page and general design, README documentation, writing.
 * Anjelica Thang:   Brainstorm ideas for assignment. Set up and manage SQL for Postgre database. Assist with overall design and debugging.
 * Lok Wong:         Set up connection to Postgre database. Implemented homepage and help functionality. Assist with design.

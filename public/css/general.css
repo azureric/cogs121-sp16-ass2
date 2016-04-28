@@ -1269,3 +1269,7 @@ p.copyright {
 	}
 
 }
+
+.btn:hover {
+	background: #960045;
+}
