@@ -1,9 +1,9 @@
 /* the norm */
 #gritter-notice-wrapper {
 	position:fixed;
-	top:20px;
-	right:20px;
-	width:301px;
+	bottom: 20px;
+	left: 20px;
+	width: 301px;
 	z-index:9999;
 }
 #gritter-notice-wrapper.top-left {
