@@ -9,6 +9,9 @@ var dotenv = require('dotenv');
 var pg = require('pg');
 var app = express();
 
+var testData = require('./public/js/reference.json');
+//var delphiSample = require('./sampleServer.json');
+
 //client id and client secret here, taken from .env (which you need to create)
 dotenv.load();
 
@@ -48,31 +51,49 @@ app.get('/delphidata', function (req, res) {
   //connect to DELPHI Database
   var pg = require('pg');
 
+
   var conString = process.env.DATABASE_CONNECTION_URL;
 
   var client = new pg.Client(conString);
   client.connect(function(err) {
     if(err) {
-      return console.error('could not connect to postgres', err);
+        return console.error('could not connect to postgres', err);
+
     }
     /* has to change th query: Query: In the year 2003, retrieve the 
     total number of respondents for each gender from the Smoking 
     Prevalence in Adults table from 1984-2013. */
     /*cdph_smoking_prevalence_in_adults_1984_2013*/
-    client.query('SELECT "Geography", "2010 Total MVC Injury No.", "2010 Total MVC Injury Rate" FROM cogs121_16_raw.hhsa_total_injuries_due_to_motor_vehicle_crashes_2010_2011 AS tableData',
+    client.query('SELECT "Geography", "2010 Total MVC Injury No.", "2011 Total MVC Injury No." FROM cogs121_16_raw.hhsa_total_injuries_due_to_motor_vehicle_crashes_2010_2011 AS tableData',
         function(err, result) {
             if(err) {
             return console.error('error running query', err);
             }
             console.log(result);
-            /* change this */
-             console.log(result.rows[0].value);
-            //output: Tue Jan 15 2013 19:12:47 GMT-600 (CST)
 
-            res.json(result.rows);
+            var rawData = result.rows;
+            var renderData = {"name": "flare", "children" : []};
+
+            var renderRootItem  = {"name": "flare", "children" : []};
+
+            for(i = 0; i < rawData.length; i++){
+                var renderDataItem = {};
+                renderDataItem["name"] = rawData[i].Geography;
+
+                var data2010 = rawData[i]["2010 Total MVC Injury No."];
+                var data2011 = rawData[i]["2011 Total MVC Injury No."];
+
+                renderDataItem["size"] = (data2010 + data2011)/2.0;
+                renderRootItem["children"].push(renderDataItem);
+            }
+
+            renderData["children"].push(renderRootItem);
+
+            console.log(renderData);
+
+            res.json(renderData);
             client.end();
-
-            return { delphidata: result };
+            //return { delphidata: result };
         });
   });
 
