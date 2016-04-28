@@ -8,13 +8,19 @@
 
 <!DOCTYPE html>
 <meta charset="utf-8">
+
+<!-- <meta name="viewport" content="width=device-width, initial-scale=0.5">
+ -->
 <style>
 
-body{
 
+
+body{
     margin: auto;
     position: relative;
-    width: 800px;
+    /*width: 1000px;*/
+    width: 80%;
+    /*height: 500px;*/
 }
 
 .node {
@@ -47,7 +53,7 @@ body{
 <script src="//d3js.org/d3.v3.min.js"></script>
 <script>
 
-var margin = 20,
+var margin = 10,
     diameter = 800;
 
 var color = d3.scale.linear()
@@ -94,7 +100,7 @@ d3.json("/delphidata", function(error, root) {
   var node = svg.selectAll("circle,text");
 
   d3.select("body")
-      .style("background", color(-1))
+      // .style("background", color(-1))
       .on("click", function() { zoom(root); });
 
   zoomTo([root.x, root.y, root.r * 2 + margin]);
@@ -117,8 +123,10 @@ d3.json("/delphidata", function(error, root) {
   }
 
   function zoomTo(v) {
+  	var a = 700;
     var k = diameter / v[2]; view = v;
     node.attr("transform", function(d) { return "translate(" + (d.x - v[0]) * k + "," + (d.y - v[1]) * k + ")"; });
+
     circle.attr("r", function(d) { return d.r * k; });
   }
 });
