@@ -6,21 +6,21 @@ Our California Highway Patrol officers work hard to assure the safe, convenient 
 transportation of people and goods on our highway system.  With a massively expansive highway
 system and a limited amount of resources, CHP officers are faced with the problem of how they
 can position themselves in the most strategic places to prevent and respond to motor vehicle collisions.
-This is where Crash Vis comes in.  Our application is capable of visualizing real-time statistics
+This is where Crash Vis comes in.  Our application is capable of visualizing statistics
 on motor vehicle collisions in a way that can be easily interpreted by officers to help them identify
 problem areas on the road.  The easier it is for our officers to see the problem, the easier it is
 for them to control traffic and prevent collisions.
 
 -------------------------------------------------------------------
 #Authors/Contributions:
-* Bonnie Chinh: 
-* Joseph Martin: 
-* Anjelica Thang: 
-* Lok Wong: 
-* Chen Yang: 
+* Bonnie Chinh:     Brainstorm ideas for assignment. Implemented the information bar.
+* Joseph Martin:    Brainstorm ideas for assignment. Help with design, README documentation, writing.
+* Anjelica Thang:   Brainstorm ideas for assignment. Set up and manage SQL for Postgre database. Assist with overall design and debugging.
+* Lok Wong:         Set up connection to Postgre database. Implemented homepage and help functionality. Assist with design.
+* Chen Yang:        Reorganized and implemented the d3 visual with data obtained. Assist with debugging.
 
 -------------------------------------------------------------------
-#instructions:
+#Instructions:
 1. Click on a region to view the cities in that region.
 2. Position your mouse over the city you want to know more about.
 3. Click anywhere to zoom out and explore another region.
