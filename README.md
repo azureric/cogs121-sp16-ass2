@@ -16,7 +16,7 @@ for them to control traffic and prevent collisions.
 * Bonnie Chinh:     Brainstorm ideas for assignment. Implemented the information bar. Hover functionality of statistics. Dashboard & Sidebar implementation.
 * Joseph Martin:    Brainstorm ideas for assignment. Help with designing landing page and general design, README documentation, writing.
 * Anjelica Thang:   Brainstorm ideas for assignment. Set up and manage SQL for Postgre database. Assist with overall design and debugging.
-* Lok Wong:         Set up connection to Postgre database. Implemented homepage and help functionality. Assist with design.
+* Lok Wong:         Set up connection to Postgre database. Implemented homepage and help functionality. Assist with design. Help documentation and landing page implementation. 
 * Chen Yang:        Reorganized data obtained to fit d3 visual. Assist with debugging. Dashboard and sidebar implementation. Circle zoom functionality.
 
 -------------------------------------------------------------------
@@ -51,12 +51,12 @@ for them to control traffic and prevent collisions.
 **Error Prevention/Recovery**
 - Is there strong evidence of error prevention and error recovery so that the user won’t be
 left confused when something unexpected happens?
-- If users were to click on the wrong area, the sidebar would display the name of the area along with the cities contained in the area so the user could easily refer to it or see if they had entered the wrong circle. The instructions upon landing on the page under "Motor Vehicle Injuries" help prevent errors to begin with. Users can also recover from errors if they clicked on the wrong circle by clicking anywhere on the page to zoom out.
+- If users were to click on the wrong area, the sidebar would display the name of the area along with the cities contained in the area so the user could easily refer to it or see if they had entered the wrong circle. The instructions upon landing on the page under "Motor Vehicle Injuries" help prevent errors to begin with. Users can also recover from errors if they clicked on the wrong circle by clicking anywhere on the page to zoom out. We are provided help documentation in which the users can read over to understand more in depth what they can do on our application. 
 
 -------------------------------------------------------------------
 #Justification of Tools
 
-Our team decided to use Bootstrap in order to easily style our work and create a consistent set of buttons and features on our pages. We also decided to use a free Bootstrap library, DashGum, to help us organize the information we wanted to display in a beautiful way. These were necessary to our project in order to attract users and ease the process of visualizing information of motor vehicle injuries. Aside from asthetics, our team chose to use a circle packing visualization as a unique and interactive way of visualizing data. Rather than using a map, circle packing allows us to divide San Diego county into six major regions, which, based off their labels, already give users an idea of their geographic locations within the county. The smaller circles inside give users a bird's-eye view of general information involving injuries, which the users can then hover over and zoom into for more detail. We believe the bird's-eye view on a simple visualization makes the data much easier to understand and the interaction created promotes an engaging experience.
+Our team decided to use Bootstrap in order to easily style our work and create a consistent set of buttons and features on our pages. We also decided to use a free Bootstrap library, DashGum, SweetAlert to help us organize the information we wanted to display in a beautiful way. These were necessary to our project in order to attract users and ease the process of visualizing information of motor vehicle injuries. Aside from asthetics, our team chose to use a circle packing visualization as a unique and interactive way of visualizing data. Rather than using a map, circle packing allows us to divide San Diego county into six major regions, which, based off their labels, already give users an idea of their geographic locations within the county. The smaller circles inside give users a bird's-eye view of general information involving injuries, which the users can then hover over and zoom into for more detail. We believe the bird's-eye view on a simple visualization makes the data much easier to understand and the interaction created promotes an engaging experience.
 
 -------------------------------------------------------------------
 * Special thanks to UC San Diego for access to the DELPHI database
